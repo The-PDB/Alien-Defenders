@@ -19,5 +19,6 @@ public class AlienDefenders {
 
 		GamePanel gp = new GamePanel();
 		f.add(gp);
+		f.addKeyListener(gp);
 	}
 }
