@@ -5,7 +5,10 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements KeyListener {
@@ -20,13 +23,22 @@ public class GamePanel extends JPanel implements KeyListener {
 
 	static final int grassHeight = 200;
 
+	public static BufferedImage turrentBarrel;
+
 	GamePanel() {
+		try {
+			turrentBarrel = ImageIO.read(this.getClass().getResourceAsStream("bullet.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
 	int current = menu;
 
 	public void paintComponent(Graphics g) {
+
 		if (current == menu) {
 			drawMenu(g);
 
@@ -49,6 +61,7 @@ public class GamePanel extends JPanel implements KeyListener {
 		g.drawString("Alien Defenders", 300, 200);
 		g.setFont(subfont);
 		g.drawString("Press Enter To Start", 375, 300);
+		System.out.println("completed");
 	}
 
 	void drawGame(Graphics g) {
