@@ -3,6 +3,7 @@ package sorce;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
@@ -23,11 +24,13 @@ public class GamePanel extends JPanel implements KeyListener {
 
 	static final int grassHeight = 200;
 
-	public static BufferedImage turrentBarrel;
+	public BufferedImage turrentBarrel;
+
+	Color[] barrel = { Color.BLACK, Color.BLUE, Color.GREEN, Color.MAGENTA, Color.ORANGE };
 
 	GamePanel() {
 		try {
-			turrentBarrel = ImageIO.read(this.getClass().getResourceAsStream("bullet.png"));
+			turrentBarrel = ImageIO.read(this.getClass().getResourceAsStream("TurrentBase"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -38,7 +41,8 @@ public class GamePanel extends JPanel implements KeyListener {
 	int current = menu;
 
 	public void paintComponent(Graphics g) {
-
+		Graphics2D img2d = turrentBarrel.createGraphics();
+		img2d.rotate(90);
 		if (current == menu) {
 			drawMenu(g);
 
