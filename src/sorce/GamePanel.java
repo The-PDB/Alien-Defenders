@@ -21,16 +21,27 @@ public class GamePanel extends JPanel implements KeyListener {
 	final int game = 1;
 
 	final int end = 2;
+	
+	int turrentIndex = 0;
 
 	static final int grassHeight = 200;
 
-	public BufferedImage turrentBarrel;
+	public BufferedImage turrentBase;
+	
+	int barrelH = 90;
+	int barrelW = 126;
 
-	Color[] barrel = { Color.BLACK, Color.BLUE, Color.GREEN, Color.MAGENTA, Color.ORANGE };
+	BufferedImage[] barrel = new BufferedImage[5];
 
 	GamePanel() {
+
 		try {
-			turrentBarrel = ImageIO.read(this.getClass().getResourceAsStream("TurrentBase"));
+			turrentBase = ImageIO.read(this.getClass().getResourceAsStream("TurrentBase.png"));
+			barrel[0] = ImageIO.read(this.getClass().getResourceAsStream("TurrentBarrel.png"));
+			barrel[1] = ImageIO.read(this.getClass().getResourceAsStream("TurrentBarrel.png"));
+			barrel[2] = ImageIO.read(this.getClass().getResourceAsStream("TurrentBarrel.png"));
+			barrel[3] = ImageIO.read(this.getClass().getResourceAsStream("TurrentBarrel.png"));
+			barrel[4] = ImageIO.read(this.getClass().getResourceAsStream("TurrentBarrel.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -41,8 +52,7 @@ public class GamePanel extends JPanel implements KeyListener {
 	int current = menu;
 
 	public void paintComponent(Graphics g) {
-		Graphics2D img2d = turrentBarrel.createGraphics();
-		img2d.rotate(90);
+
 		if (current == menu) {
 			drawMenu(g);
 
@@ -65,16 +75,32 @@ public class GamePanel extends JPanel implements KeyListener {
 		g.drawString("Alien Defenders", 300, 200);
 		g.setFont(subfont);
 		g.drawString("Press Enter To Start", 375, 300);
-		System.out.println("completed");
 	}
 
 	void drawGame(Graphics g) {
+
+		Graphics2D img2d = (Graphics2D) g;
+
 		g.setColor(new Color(0x66EEFF));
 		g.fillRect(0, 0, AlienDefenders.width, AlienDefenders.height);
-		g.setColor(Color.RED);
-		g.fillOval(AlienDefenders.width / 2 - 50, AlienDefenders.height - grassHeight - 50, 100, 100);
+		
+		g.drawImage(barrel[0], 380, 460, 126, 90, null);
+		
+		// g.drawImage(barrel[1], 380, 460, 126, 90, null);
+		
+		//g.drawImage(barrel[2], 380, 460, 126, 90, null);
+		
+		//g.drawImage(barrel[3], 380, 460, 126, 90, null);
+		
+		//g.drawImage(barrel[4], 380, 460, 126, 90, null);
+		
+		g.drawImage(turrentBase, 440, 491, 119, 114, null);
+		
+
 		g.setColor(new Color(0x00FF00));
 		g.fillRect(0, AlienDefenders.height - grassHeight, AlienDefenders.width, grassHeight);
+		
+		
 	}
 
 	void drawEnd(Graphics g) {
@@ -97,6 +123,25 @@ public class GamePanel extends JPanel implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
+		if (e.getKeyCode() == KeyEvent.VK_A) {
+
+		}
+
+		if (e.getKeyCode() == KeyEvent.VK_Q) {
+
+		}
+
+		if (e.getKeyCode() == KeyEvent.VK_W) {
+
+		}
+
+		if (e.getKeyCode() == KeyEvent.VK_E) {
+
+		}
+
+		if (e.getKeyCode() == KeyEvent.VK_D) {
+
+		}
 
 	}
 
