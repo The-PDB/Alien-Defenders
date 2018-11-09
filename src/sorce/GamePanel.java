@@ -21,13 +21,17 @@ public class GamePanel extends JPanel implements KeyListener {
 	final int game = 1;
 
 	final int end = 2;
-	
+
 	int turrentIndex = 0;
+
+	int barrelNum = 1;
 
 	static final int grassHeight = 200;
 
 	public BufferedImage turrentBase;
 	
+	public BufferedImage bullets;
+
 	int barrelH = 90;
 	int barrelW = 126;
 
@@ -37,11 +41,12 @@ public class GamePanel extends JPanel implements KeyListener {
 
 		try {
 			turrentBase = ImageIO.read(this.getClass().getResourceAsStream("TurrentBase.png"));
-			barrel[0] = ImageIO.read(this.getClass().getResourceAsStream("TurrentBarrel.png"));
-			barrel[1] = ImageIO.read(this.getClass().getResourceAsStream("TurrentBarrel.png"));
-			barrel[2] = ImageIO.read(this.getClass().getResourceAsStream("TurrentBarrel.png"));
-			barrel[3] = ImageIO.read(this.getClass().getResourceAsStream("TurrentBarrel.png"));
-			barrel[4] = ImageIO.read(this.getClass().getResourceAsStream("TurrentBarrel.png"));
+			barrel[0] = ImageIO.read(this.getClass().getResourceAsStream("Barrel1.png"));
+			barrel[1] = ImageIO.read(this.getClass().getResourceAsStream("Barrel2.png"));
+			barrel[2] = ImageIO.read(this.getClass().getResourceAsStream("Barrel3.png"));
+			barrel[3] = ImageIO.read(this.getClass().getResourceAsStream("Barrel4.png"));
+			barrel[4] = ImageIO.read(this.getClass().getResourceAsStream("Barrel5.png"));
+			bullets = ImageIO.read(this.getClass().getResourceAsStream("Bullet.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -51,6 +56,7 @@ public class GamePanel extends JPanel implements KeyListener {
 
 	int current = menu;
 
+	@Override
 	public void paintComponent(Graphics g) {
 
 		if (current == menu) {
@@ -84,23 +90,32 @@ public class GamePanel extends JPanel implements KeyListener {
 		g.setColor(new Color(0x66EEFF));
 		g.fillRect(0, 0, AlienDefenders.width, AlienDefenders.height);
 		
-		g.drawImage(barrel[0], 380, 460, 126, 90, null);
+		Bullets b = new Bullets(450, 480, 100, 100);
 		
-		// g.drawImage(barrel[1], 380, 460, 126, 90, null);
-		
-		//g.drawImage(barrel[2], 380, 460, 126, 90, null);
-		
-		//g.drawImage(barrel[3], 380, 460, 126, 90, null);
-		
-		//g.drawImage(barrel[4], 380, 460, 126, 90, null);
+		if (barrelNum == 1) {
+			g.drawImage(barrel[0], 380, 460, 126, 90, null);
+			b.draw(g);
+		} else if (barrelNum == 2) {
+			g.drawImage(barrel[1], 390, 455, 126, 90, null);
+			b.draw(g);
+		} else if (barrelNum == 3) {
+			g.drawImage(barrel[2], 435, 435, 126, 90, null);
+			b.draw(g);
+		} else if (barrelNum == 4) {
+			g.drawImage(barrel[3], 480, 450, 126, 90, null);
+			b.draw(g);
+		} else if (barrelNum == 5) {
+			g.drawImage(barrel[4], 485, 465, 126, 90, null);
+			b.draw(g);
+		}
 		
 		g.drawImage(turrentBase, 440, 491, 119, 114, null);
+		
 		
 
 		g.setColor(new Color(0x00FF00));
 		g.fillRect(0, AlienDefenders.height - grassHeight, AlienDefenders.width, grassHeight);
-		
-		
+
 	}
 
 	void drawEnd(Graphics g) {
@@ -124,23 +139,23 @@ public class GamePanel extends JPanel implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getKeyCode() == KeyEvent.VK_A) {
-
+			barrelNum = 1;
 		}
 
-		if (e.getKeyCode() == KeyEvent.VK_Q) {
-
+		else if (e.getKeyCode() == KeyEvent.VK_Q) {
+			barrelNum = 2;
 		}
 
-		if (e.getKeyCode() == KeyEvent.VK_W) {
-
+		else if (e.getKeyCode() == KeyEvent.VK_W) {
+			barrelNum = 3;
 		}
 
-		if (e.getKeyCode() == KeyEvent.VK_E) {
-
+		else if (e.getKeyCode() == KeyEvent.VK_E) {
+			barrelNum = 4;
 		}
 
-		if (e.getKeyCode() == KeyEvent.VK_D) {
-
+		else if (e.getKeyCode() == KeyEvent.VK_D) {
+			barrelNum = 5;
 		}
 
 	}
