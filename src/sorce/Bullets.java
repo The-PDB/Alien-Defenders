@@ -19,7 +19,7 @@ void update() {
 			
 	}
 	else if(gp.barrelNum == 3) {
-		y-= 20;
+		y = y - 20;
 	}
 	else if(gp.barrelNum == 4) {
 				
@@ -32,5 +32,6 @@ void update() {
 
 void draw(Graphics g) {
 	g.drawImage(gp.bullets, x, y, width, height, null);
+	
 }
 }

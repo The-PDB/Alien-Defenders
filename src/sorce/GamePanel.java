@@ -3,7 +3,6 @@ package sorce;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
@@ -25,17 +24,22 @@ public class GamePanel extends JPanel implements KeyListener {
 	int turrentIndex = 0;
 
 	int barrelNum = 1;
+	
+	
 
 	static final int grassHeight = 200;
 
 	public BufferedImage turrentBase;
 	
 	public BufferedImage bullets;
+	
 
 	int barrelH = 90;
 	int barrelW = 126;
 
 	BufferedImage[] barrel = new BufferedImage[5];
+	
+	
 
 	GamePanel() {
 
@@ -82,15 +86,19 @@ public class GamePanel extends JPanel implements KeyListener {
 		g.setFont(subfont);
 		g.drawString("Press Enter To Start", 375, 300);
 	}
+	
+	void updateGame() {
+		
+	}
 
 	void drawGame(Graphics g) {
 
-		Graphics2D img2d = (Graphics2D) g;
-
+		Bullets b = new Bullets(450, 480, 100, 100);
+		
 		g.setColor(new Color(0x66EEFF));
 		g.fillRect(0, 0, AlienDefenders.width, AlienDefenders.height);
 		
-		Bullets b = new Bullets(450, 480, 100, 100);
+		
 		
 		if (barrelNum == 1) {
 			g.drawImage(barrel[0], 380, 460, 126, 90, null);
@@ -108,6 +116,7 @@ public class GamePanel extends JPanel implements KeyListener {
 			g.drawImage(barrel[4], 485, 465, 126, 90, null);
 			b.draw(g);
 		}
+		
 		
 		g.drawImage(turrentBase, 440, 491, 119, 114, null);
 		
@@ -140,6 +149,7 @@ public class GamePanel extends JPanel implements KeyListener {
 		// TODO Auto-generated method stub
 		if (e.getKeyCode() == KeyEvent.VK_A) {
 			barrelNum = 1;
+			
 		}
 
 		else if (e.getKeyCode() == KeyEvent.VK_Q) {
