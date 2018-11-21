@@ -10,7 +10,7 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
-
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -32,9 +32,16 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 
 	int barrelNum = 1;
 	
+	int lb = 0;
+	
 	int fps = 60;
 	
+	boolean b3 = false;
+	
+	Random r = new Random(4);
+	
 	ArrayList<Bullets> bList = new ArrayList<Bullets>();
+	ArrayList<Enemy> eList = new ArrayList<Enemy>();
 
 	static final int grassHeight = 200;
 
@@ -43,6 +50,8 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 	public BufferedImage bullets;
 	
 	public BufferedImage enemy;
+	
+	public BufferedImage eBullet;
 	
 
 	int barrelH = 90;
@@ -63,6 +72,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 			barrel[4] = ImageIO.read(this.getClass().getResourceAsStream("Barrel5.png"));
 			bullets = ImageIO.read(this.getClass().getResourceAsStream("Bullet.png"));
 			enemy = ImageIO.read(this.getClass().getResourceAsStream("enemy.png"));
+			eBullet = ImageIO.read(this.getClass().getResourceAsStream("enemyBullet.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -116,10 +126,18 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 		g.setColor(new Color(0x66EEFF));
 		g.fillRect(0, 0, AlienDefenders.width, AlienDefenders.height);
 		
+		while(bList.size() > 10) {
+			bList.remove(0);
+		
+		}
 		for(Bullets b: bList) {
 		b.draw(g);
 		
+		
 		}
+		
+		
+		
 		if (barrelNum == 1) {
 			g.drawImage(barrel[0], 380, 460, 126, 90, null);
 			
@@ -136,7 +154,15 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 			g.drawImage(barrel[4], 485, 465, 126, 90, null);
 			
 		}
+		g.drawImage(enemy, 0, 30, 150, 150, null);
 		
+		g.drawImage(enemy, 0, 250, 150, 150, null);
+		
+		g.drawImage(enemy, 425, 0, 150, 150, null);
+		
+		g.drawImage(enemy, 850, 30, 150, 150, null);
+		
+		g.drawImage(enemy, 850, 250, 150, 150, null);
 		
 		g.drawImage(turrentBase, 440, 491, 119, 114, null);
 		
@@ -171,32 +197,49 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 		// TODO Auto-generated method stub
 		if (e.getKeyCode() == KeyEvent.VK_A) {
 			barrelNum = 1;
-			createBullet(1);
+			if(lb != 1) {
+				createBullet(1);
+				lb = 1;
+			}
 			
 		}
 
 		else if (e.getKeyCode() == KeyEvent.VK_Q) {
 			barrelNum = 2;
-			createBullet(2);
+			if(lb != 2) {
+				createBullet(2);
+				lb = 2;
+			}
 			
 			
 		}
 
 		else if (e.getKeyCode() == KeyEvent.VK_W) {
 			barrelNum = 3;
-			createBullet(3);
+			if(lb != 3) {
+				createBullet(3);
+				lb = 3;
+			}
+			
+			
 			
 		}
 
 		else if (e.getKeyCode() == KeyEvent.VK_E) {
 			barrelNum = 4;
-			createBullet(4);
+			if(lb != 4) {
+				createBullet(4);
+				lb = 4;
+			}
 			
 		}
 
 		else if (e.getKeyCode() == KeyEvent.VK_D) {
 			barrelNum = 5;
-			createBullet(5);
+			if(lb != 5) {
+				createBullet(5);
+				lb = 5;
+			}
 			
 		}
 
@@ -211,6 +254,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
+		lb = 0;
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			if (current == menu) {
 				current = game;
