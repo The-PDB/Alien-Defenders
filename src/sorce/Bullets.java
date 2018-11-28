@@ -1,6 +1,7 @@
 package sorce;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 
 public class Bullets extends GameObject {
@@ -23,16 +24,16 @@ void update() {
 		x = x - 2;
 	}
 	else if(barrelNum == 2) {
-		y = y - 1;
-		x = x - 1;
+		y = y - 2;
+		x = x - 2;
 	}
 	else if(barrelNum == 3) {
 		
-		y = y - 1;
+		y = y - 2;
 	}
 	else if(barrelNum == 4) {
-		y = y - 1;
-		x = x + 1;
+		y = y - 2;
+		x = x + 2;
 	}
 	else if(barrelNum == 5) {
 		y = y - 1;
@@ -46,7 +47,8 @@ void update() {
 
 
 void draw(Graphics g) {
-	g.drawImage(gp.bullets, x, y, width, height, null);
+	
+	g.drawImage(GamePanel.bullets, x, y, width, height, null);
 	
 }
 }

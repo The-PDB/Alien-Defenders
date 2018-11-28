@@ -32,32 +32,35 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 
 	int barrelNum = 1;
 	
+	//int enemyNum = 1;
+	
 	int lb = 0;
 	
-	int fps = 60;
+	int fps = 1;//60;
 	
 	boolean b3 = false;
 	
-	Random r = new Random(4);
+	Random r = new Random();
 	
+	ArrayList<eBullets> ebList = new ArrayList<eBullets>();
 	ArrayList<Bullets> bList = new ArrayList<Bullets>();
 	ArrayList<Enemy> eList = new ArrayList<Enemy>();
 
 	static final int grassHeight = 200;
 
-	public BufferedImage turrentBase;
+	private BufferedImage turrentBase;
 	
-	public BufferedImage bullets;
+	public static BufferedImage bullets;
 	
-	public BufferedImage enemy;
+	public static BufferedImage enemy;
 	
-	public BufferedImage eBullet;
+	public static BufferedImage eBullet;
 	
 
 	int barrelH = 90;
 	int barrelW = 126;
 
-	BufferedImage[] barrel = new BufferedImage[5];
+	 private BufferedImage[] barrel = new BufferedImage[5];
 	
 	
 
@@ -117,6 +120,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 			b.update();
 		}
 		
+		
 	}
 
 	void drawGame(Graphics g) {
@@ -126,16 +130,16 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 		g.setColor(new Color(0x66EEFF));
 		g.fillRect(0, 0, AlienDefenders.width, AlienDefenders.height);
 		
-		while(bList.size() > 10) {
-			bList.remove(0);
 		
-		}
 		for(Bullets b: bList) {
 		b.draw(g);
 		
 		
 		}
-		
+		for(eBullets eb: ebList) {
+			eb.draw(g);
+		}
+	
 		
 		
 		if (barrelNum == 1) {
@@ -154,6 +158,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 			g.drawImage(barrel[4], 485, 465, 126, 90, null);
 			
 		}
+		
 		g.drawImage(enemy, 0, 30, 150, 150, null);
 		
 		g.drawImage(enemy, 0, 250, 150, 150, null);
@@ -167,7 +172,15 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 		g.drawImage(turrentBase, 440, 491, 119, 114, null);
 		
 		
+		
+//		g.drawImage(eBullet, 70, 90, 10, 10, null);
+//		g.drawImage(eBullet, 70, 310, 10, 10, null);
+//		g.drawImage(eBullet, 495, 60, 10, 10, null);
+//		g.drawImage(eBullet, 920, 90, 10, 10, null);
+//		g.drawImage(eBullet, 920, 310, 10, 10, null);
 
+		
+		
 		g.setColor(new Color(0x00FF00));
 		g.fillRect(0, AlienDefenders.height - grassHeight, AlienDefenders.width, grassHeight);
 
@@ -247,8 +260,31 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 
 	private void createBullet(int barrelNum) {
 		Bullets b = new Bullets(450, 480, 100, 100);
+		
 		b.setBarrelNum(barrelNum);
 		bList.add(b);
+	}
+	private void createEBullet(int enemyNum) {
+		if(enemyNum == 1) {
+		eBullets eb = new eBullets(enemyNum, 70, 310, 10, 10);
+		ebList.add(eb);
+		}
+		else if(enemyNum == 2) {
+		eBullets eb = new eBullets(enemyNum, 70, 90, 10, 10);
+		ebList.add(eb);
+		}
+		else if(enemyNum == 3) {
+			eBullets eb = new eBullets(enemyNum, 495, 60, 10, 10);
+			ebList.add(eb);
+		}
+		else if(enemyNum == 4) {
+			eBullets eb = new eBullets(enemyNum, 920, 90, 10, 10);
+			ebList.add(eb);
+		}
+		else if(enemyNum == 5 ) {
+			eBullets eb = new eBullets(enemyNum, 920, 310, 10, 10);
+			ebList.add(eb);
+		}
 	}
 
 	@Override
@@ -269,7 +305,11 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		tickCount ++;
+		//tickCount++;
+		int enemyNum = r.nextInt(5) + 1;
+		createEBullet(enemyNum);
+		System.out.println(ebList.size());
+		
 	}
 
 }

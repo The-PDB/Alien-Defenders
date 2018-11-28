@@ -8,7 +8,7 @@ public class GameObject {
 	int width;
 	int height;
 	
-	GamePanel gp = new GamePanel();
+	
 
 	boolean Alive = true;
 	Rectangle collisionBox;
