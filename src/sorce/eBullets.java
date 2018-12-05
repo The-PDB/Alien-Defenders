@@ -35,7 +35,7 @@ int enemyNum;
 			y = y + 1;
 			x = x - 2;
 		}
-		
+		System.out.println(enemyNum);
 	}
 	
 	void draw(Graphics g) {
