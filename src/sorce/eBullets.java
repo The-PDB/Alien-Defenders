@@ -16,11 +16,11 @@ int enemyNum;
 		super.update();
 
 		if(enemyNum == 1) {
-			y = y + 1;
+			y = y + 2;
 			x = x + 2;
 		}
 		else if(enemyNum == 2) {
-			y = y + 2;
+			y = y + 1;
 			x = x + 2;
 		}
 		else if(enemyNum == 3) {
@@ -35,7 +35,7 @@ int enemyNum;
 			y = y + 1;
 			x = x - 2;
 		}
-		System.out.println(enemyNum);
+		
 	}
 	
 	void draw(Graphics g) {

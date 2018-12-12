@@ -10,6 +10,7 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
@@ -131,6 +132,8 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 		
 		for (Enemy e : eList) {
 			e.draw(g);
+			e.update();
+			
 		}
 
 		if (barrelNum == 1) {
@@ -237,18 +240,23 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 		if (enemyNum == 1) {
 			Enemy e = new Enemy(0, 30, 150, 150);
 			eList.add(e);
+			e.setEnemyNum(1);
 		} else if (enemyNum == 2) {
 			Enemy e = new Enemy(0, 250, 150, 150);
 			eList.add(e);
+			e.setEnemyNum(2);
 		} else if (enemyNum == 3) {
 			Enemy e = new Enemy(425, 0, 150, 150);
 			eList.add(e);
+			e.setEnemyNum(3);
 		} else if (enemyNum == 4) {
 			Enemy e = new Enemy(850, 30, 150, 150);
 			eList.add(e);
+			e.setEnemyNum(4);
 		} else if (enemyNum == 5) {
 			Enemy e = new Enemy(850, 250, 150, 150);
 			eList.add(e);
+			e.setEnemyNum(5);
 		}
 	}
 
