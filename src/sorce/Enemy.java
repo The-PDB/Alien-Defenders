@@ -60,7 +60,11 @@ public class Enemy extends GameObject {
 		}
 		if(drawBullet) {
 			eb.update();
+			if(eb.y < 0 || eb.y > AlienDefenders.height) {
+				Alive = false;
+			}
 		}
+		
 	}
 
 	void draw(Graphics g) {

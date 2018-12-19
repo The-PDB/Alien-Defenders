@@ -25,6 +25,12 @@ public class GameObject {
 	void update() {
 		
 		collisionBox.setBounds(x, y, width, height);
+		if(y < 0 || y > AlienDefenders.height) {
+			Alive = false;
+		}
+		if(x < 0 || x > AlienDefenders.width) {
+			Alive = false;
+		}
 		
 	}
 

@@ -41,6 +41,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 
 	boolean b3 = false;
 
+
 	Random r = new Random();
 
 	ArrayList<Bullets> bList = new ArrayList<Bullets>();
@@ -116,7 +117,14 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 		for (Bullets b : bList) {
 			b.update();
 		}
-		
+//PURGE
+	
+		for (int i = 0; i < eList.size(); i++) {
+			if(!eList.get(i).Alive) {
+				eList.remove(i);
+			}
+		}
+		System.out.println(eList.size());
 
 	}
 
@@ -279,9 +287,22 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		// tickCount++;
-		int enemyNum = r.nextInt(5) + 1;
-		createEnemy(enemyNum);
-		
+		boolean ok = true;
+		int eNum = r.nextInt(5) + 1;
+		if (current == game) {
+			while (ok && eList.size() > 0) {
+				eNum = r.nextInt(5) + 1;
+				for (Enemy enemy : eList) {
+					if (eNum == enemy.enemyNum) {
+						ok = false;
+						break;
+					} 
+				}
+			}
+			if(ok) {
+			createEnemy(eNum);
+			}
+		}
 
 	}
 
