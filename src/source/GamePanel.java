@@ -1,4 +1,4 @@
-package sorce;
+package source;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -35,12 +35,11 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 
 	int enemyNum = 1;
 
-	int lb = 0;
+	int lastBarrel = 0;
 
 	int fps = 1;// 60;
 
 	boolean b3 = false;
-
 
 	Random r = new Random();
 
@@ -116,15 +115,26 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 	void updateGame() {
 		for (Bullets b : bList) {
 			b.update();
+			for (Enemy e : eList) {
+				if (b.colBox.intersects(e.colBox)) {
+					e.Alive = false;
+					b.Alive = false;
+					System.out.println("collide");
+				}
+			}
 		}
-//PURGE
-	
+		// PURGE
+
 		for (int i = 0; i < eList.size(); i++) {
-			if(!eList.get(i).Alive) {
+			if (!eList.get(i).Alive) {
 				eList.remove(i);
 			}
 		}
-		System.out.println(eList.size());
+		for (int i = 0; i < bList.size(); i++) {
+			if (!bList.get(i).Alive) {
+				bList.remove(i);
+			}
+		}
 
 	}
 
@@ -137,11 +147,11 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 			b.draw(g);
 
 		}
-		
+
 		for (Enemy e : eList) {
 			e.draw(g);
 			e.update();
-			
+
 		}
 
 		if (barrelNum == 1) {
@@ -162,8 +172,6 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 		}
 
 		g.drawImage(turrentBase, 440, 491, 119, 114, null);
-
-		
 
 		g.setColor(new Color(0x00FF00));
 		g.fillRect(0, AlienDefenders.height - grassHeight, AlienDefenders.width, grassHeight);
@@ -192,45 +200,45 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 		// TODO Auto-generated method stub
 		if (e.getKeyCode() == KeyEvent.VK_A) {
 			barrelNum = 1;
-			if (lb != 1) {
+			if (lastBarrel != 1) {
 				createBullet(1);
-				lb = 1;
+				lastBarrel = 1;
 			}
 
 		}
 
 		else if (e.getKeyCode() == KeyEvent.VK_Q) {
 			barrelNum = 2;
-			if (lb != 2) {
+			if (lastBarrel != 2) {
 				createBullet(2);
-				lb = 2;
+				lastBarrel = 2;
 			}
 
 		}
 
 		else if (e.getKeyCode() == KeyEvent.VK_W) {
 			barrelNum = 3;
-			if (lb != 3) {
+			if (lastBarrel != 3) {
 				createBullet(3);
-				lb = 3;
+				lastBarrel = 3;
 			}
 
 		}
 
 		else if (e.getKeyCode() == KeyEvent.VK_E) {
 			barrelNum = 4;
-			if (lb != 4) {
+			if (lastBarrel != 4) {
 				createBullet(4);
-				lb = 4;
+				lastBarrel = 4;
 			}
 
 		}
 
 		else if (e.getKeyCode() == KeyEvent.VK_D) {
 			barrelNum = 5;
-			if (lb != 5) {
+			if (lastBarrel != 5) {
 				createBullet(5);
-				lb = 5;
+				lastBarrel = 5;
 			}
 
 		}
@@ -271,7 +279,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		lb = 0;
+		lastBarrel = 0;
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			if (current == menu) {
 				current = game;
@@ -287,21 +295,27 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		// tickCount++;
-		boolean ok = true;
-		int eNum = r.nextInt(5) + 1;
 		if (current == game) {
-			while (ok && eList.size() > 0) {
+			System.out.println(bList.size());
+			int eNum = r.nextInt(5) + 1;
+			if (eList.size() >= 5) {
+				return;
+			}
+			while (true) {
 				eNum = r.nextInt(5) + 1;
+				boolean locationInUse = false;
 				for (Enemy enemy : eList) {
 					if (eNum == enemy.enemyNum) {
-						ok = false;
+						locationInUse = true;
 						break;
-					} 
+					}
+				}
+				if (!locationInUse) {
+					createEnemy(eNum);
+					break;
 				}
 			}
-			if(ok) {
-			createEnemy(eNum);
-			}
+
 		}
 
 	}

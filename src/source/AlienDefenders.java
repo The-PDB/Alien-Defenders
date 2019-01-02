@@ -1,4 +1,4 @@
-package sorce;
+package source;
 
 import javax.swing.JFrame;
 
