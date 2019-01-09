@@ -48,8 +48,8 @@ public class Enemy extends GameObject {
 			eb.update();
 		}
 		startTime = new Date();
-		int colBoxX = (x + width)/2 - (colBoxSize/2);
-		int colBoxY = (y + height)/2 - (colBoxSize/2);
+		int colBoxX = x + (width/2) - (colBoxSize/2);
+		int colBoxY = y + (height/2) - (colBoxSize/2);
 		colBox = new Rectangle(colBoxX, colBoxY, colBoxSize/2, colBoxSize/2);
 	}
 
@@ -69,6 +69,7 @@ public class Enemy extends GameObject {
 			if (eb.y < 0 || eb.y > AlienDefenders.height) {
 				Alive = false;
 			}
+			
 		}
 
 	}

@@ -1,12 +1,16 @@
 package source;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 public class eBullets extends GameObject {
 	int enemyNum;
+	boolean Alive = true;
+	Rectangle colBox;
 
 	eBullets(int enemyNum, int x, int y, int width, int height) {
 		super(x, y, width, height);
+		colBox = new Rectangle(x, y, width, height);
 	}
 
 	public void setEnemyNum(int enemyNum) {
@@ -32,7 +36,8 @@ public class eBullets extends GameObject {
 			y = y + 1;
 			x = x - 2;
 		}
-
+		colBox.setBounds(x, y, width, height);
+		
 	}
 
 	void draw(Graphics g) {

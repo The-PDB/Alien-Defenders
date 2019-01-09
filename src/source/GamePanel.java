@@ -3,6 +3,7 @@ package source;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -21,6 +22,8 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 	Font titlefont = new Font("Ariel", Font.PLAIN, 48);
 	Font subfont = new Font("Ariel", Font.PLAIN, 24);
 
+	Rectangle pColBox;
+	
 	final int menu = 0;
 
 	final int game = 1;
@@ -40,6 +43,10 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 	int fps = 1;// 60;
 
 	boolean b3 = false;
+	
+	static final int playerColBox =  100;
+	
+	
 
 	Random r = new Random();
 
@@ -119,7 +126,10 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 				if (b.colBox.intersects(e.colBox)) {
 					e.Alive = false;
 					b.Alive = false;
-					System.out.println("collide");
+				}
+				if(e.eb.colBox.intersects(pColBox)) {
+					e.eb.Alive = false;
+					current = end;
 				}
 			}
 		}
@@ -175,6 +185,13 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 
 		g.setColor(new Color(0x00FF00));
 		g.fillRect(0, AlienDefenders.height - grassHeight, AlienDefenders.width, grassHeight);
+		
+		//Player Collison Box
+		int pColBoxX = 473;
+		int pColBoxY = 500;
+		pColBox = new Rectangle(pColBoxX, pColBoxY, playerColBox, playerColBox);
+		g.setColor(Color.RED);
+		g.drawRect(pColBoxX, pColBoxY, playerColBox, playerColBox);
 
 	}
 
@@ -188,6 +205,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 		g.drawString("Score: ", 375, 300);
 		g.drawString("Highscore: ", 375, 350);
 	}
+	
 
 	@Override
 	public void keyTyped(KeyEvent e) {
