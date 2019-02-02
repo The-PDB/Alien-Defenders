@@ -8,6 +8,7 @@ public class Bullets extends GameObject {
 	int barrelNum;
 	boolean Alive = true;
 	Rectangle colBox;
+	boolean miss = true;
 
 	public void setBarrelNum(int barrelNum) {
 		this.barrelNum = barrelNum;
@@ -38,8 +39,9 @@ public class Bullets extends GameObject {
 			x = x + 2;
 		}
 		colBox.setBounds(x, y, width, height);
-		if (y < 0) {
+		if (y < -50) {
 			Alive = false;
+			miss  = false;
 		}
 	}
 

@@ -45,7 +45,8 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 	boolean b3 = false;
 	
 	static final int playerColBox =  100;
-	
+
+	int lives = 3;
 	
 
 	Random r = new Random();
@@ -120,19 +121,31 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 	}
 
 	void updateGame() {
+		if(lives <= 0) {
+			current = end;
+			}
 		for (Bullets b : bList) {
 			b.update();
+			if(b.miss == false) {
+				lives-=1;
+				
+			}
 			for (Enemy e : eList) {
 				if (b.colBox.intersects(e.colBox)) {
 					e.Alive = false;
 					b.Alive = false;
 				}
-				if(e.eb.colBox.intersects(pColBox)) {
-					e.eb.Alive = false;
-					current = end;
-				}
+				
 			}
 		}
+		for (Enemy e : eList) {
+		if(e.eb.colBox.intersects(pColBox)) {
+			lives-=1;
+			e.eb.Alive = false;
+			
+		}
+	}
+		
 		// PURGE
 
 		for (int i = 0; i < eList.size(); i++) {
@@ -152,12 +165,13 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 
 		g.setColor(new Color(0x66EEFF));
 		g.fillRect(0, 0, AlienDefenders.width, AlienDefenders.height);
+		
+		
 
 		for (Bullets b : bList) {
 			b.draw(g);
-
+		
 		}
-
 		for (Enemy e : eList) {
 			e.draw(g);
 			e.update();
@@ -186,12 +200,17 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 		g.setColor(new Color(0x00FF00));
 		g.fillRect(0, AlienDefenders.height - grassHeight, AlienDefenders.width, grassHeight);
 		
+		g.setFont(subfont);
+		g.setColor(Color.BLACK);
+		String lives2 = Integer.toString(lives);
+		g.drawString(lives2, 500, 700);
+		
 		//Player Collison Box
 		int pColBoxX = 473;
 		int pColBoxY = 500;
 		pColBox = new Rectangle(pColBoxX, pColBoxY, playerColBox, playerColBox);
 		g.setColor(Color.RED);
-		g.drawRect(pColBoxX, pColBoxY, playerColBox, playerColBox);
+		
 
 	}
 
@@ -302,8 +321,8 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 			if (current == menu) {
 				current = game;
 
-			} else if (current == game) {
-				current = end;
+			} else if (current == end) {
+				current = menu;
 
 			}
 		}
@@ -314,7 +333,6 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 		// TODO Auto-generated method stub
 		// tickCount++;
 		if (current == game) {
-			System.out.println(bList.size());
 			int eNum = r.nextInt(5) + 1;
 			if (eList.size() >= 5) {
 				return;

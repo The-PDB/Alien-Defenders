@@ -78,7 +78,7 @@ public class Enemy extends GameObject {
 		if (drawShip) {
 			g.drawImage(GamePanel.enemy, x, y, width, height, null);
 			g.setColor(Color.BLACK);
-			g.drawRect(colBox.x, colBox.y, colBox.width, colBox.height);
+			
 		}
 
 		if (drawBullet) {
