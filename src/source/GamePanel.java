@@ -21,6 +21,7 @@ import javax.swing.Timer;
 public class GamePanel extends JPanel implements KeyListener, ActionListener {
 	Font titlefont = new Font("Ariel", Font.PLAIN, 48);
 	Font subfont = new Font("Ariel", Font.PLAIN, 24);
+	Font rules = new Font("Ariel", Font.PLAIN, 24);
 
 	Rectangle pColBox;
 	
@@ -46,8 +47,9 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 	
 	static final int playerColBox =  100;
 
-	int lives = 3;
+	int lives = 0;
 	
+	int score = 0;
 
 	Random r = new Random();
 
@@ -118,29 +120,40 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 		g.drawString("Alien Defenders", 300, 200);
 		g.setFont(subfont);
 		g.drawString("Press Enter To Start", 375, 300);
+		g.drawString("A - Shoot Left", 375, 400);
+		g.drawString("Q - Shoot Upper Left", 375, 425);
+		g.drawString("W - Shoot Up", 375, 450);
+		g.drawString("E - Shoot Upper Right", 375, 475);
+		g.drawString("D - Shoot Right", 375, 500);
+		g.setFont(rules);
+		g.setColor(Color.RED);
+		g.drawString("Misses are displayed at the bottom. When you reach 3 misses you lose.", 100, 550);
+		g.drawString("If you are hit by an alien's bullet you die.", 300, 575);
+		
 	}
 
 	void updateGame() {
-		if(lives <= 0) {
+		if(lives >= 3) {
 			current = end;
 			}
 		for (Bullets b : bList) {
 			b.update();
 			if(b.miss == false) {
-				lives-=1;
+				lives+=1;
 				
 			}
 			for (Enemy e : eList) {
 				if (b.colBox.intersects(e.colBox)) {
 					e.Alive = false;
 					b.Alive = false;
+					score+=1;
 				}
 				
 			}
 		}
 		for (Enemy e : eList) {
 		if(e.eb.colBox.intersects(pColBox)) {
-			lives-=1;
+			lives+=1;
 			e.eb.Alive = false;
 			
 		}
@@ -203,7 +216,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 		g.setFont(subfont);
 		g.setColor(Color.BLACK);
 		String lives2 = Integer.toString(lives);
-		g.drawString(lives2, 500, 700);
+		g.drawString("Misses: "+lives2, 500, 700);
 		
 		//Player Collison Box
 		int pColBoxX = 473;
@@ -221,8 +234,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 		g.setFont(titlefont);
 		g.drawString("You Died", 300, 200);
 		g.setFont(subfont);
-		g.drawString("Score: ", 375, 300);
-		g.drawString("Highscore: ", 375, 350);
+		g.drawString("Score: " + score, 375, 300);
 	}
 	
 
@@ -319,7 +331,12 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 		lastBarrel = 0;
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			if (current == menu) {
+				lives = 0;
+				score = 0;
+				bList = new ArrayList<Bullets>();
+				eList = new ArrayList<Enemy>();
 				current = game;
+			
 
 			} else if (current == end) {
 				current = menu;
