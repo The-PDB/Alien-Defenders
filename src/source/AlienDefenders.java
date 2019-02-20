@@ -7,7 +7,7 @@ public class AlienDefenders {
 	public static final int height = 800;
 
 	public static void main(String[] args) {
-		AlienDefenders ad = new AlienDefenders();
+		new AlienDefenders();
 
 	}
 
@@ -15,6 +15,8 @@ public class AlienDefenders {
 		JFrame f = new JFrame();
 		f.setVisible(true);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		
 
 		GamePanel gp = new GamePanel();
 		f.add(gp);

@@ -11,7 +11,6 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
@@ -50,6 +49,8 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 	int lives = 0;
 	
 	int score = 0;
+	
+	int highscore = 0;
 
 	Random r = new Random();
 
@@ -217,6 +218,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 		g.setColor(Color.BLACK);
 		String lives2 = Integer.toString(lives);
 		g.drawString("Misses: "+lives2, 500, 700);
+		g.drawString("Score: "+score, 500, 675);
 		
 		//Player Collison Box
 		int pColBoxX = 473;
@@ -232,9 +234,13 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 		g.fillRect(0, 0, AlienDefenders.width, AlienDefenders.height);
 		g.setColor(Color.RED);
 		g.setFont(titlefont);
-		g.drawString("You Died", 300, 200);
+		g.drawString("You Died", 400, 200);
 		g.setFont(subfont);
-		g.drawString("Score: " + score, 375, 300);
+		g.drawString("Score.......: " + score, 375, 300);
+		if(score>=highscore) {
+			highscore = score;
+		}
+		g.drawString("Highscore: " + highscore, 375, 325);
 	}
 	
 
