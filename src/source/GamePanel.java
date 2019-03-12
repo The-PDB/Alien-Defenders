@@ -153,11 +153,11 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 			}
 		}
 		for (Enemy e : eList) {
-//		if(e.eb.colBox.intersects(pColBox)) {
-//			lives+=1;
-//			e.eb.Alive = false;
-//			
-//		}
+		if(e.eb.colBox.intersects(pColBox)) {
+			lives+=1;
+			e.eb.Alive = false;
+			
+		}
 	}
 		
 		// PURGE
